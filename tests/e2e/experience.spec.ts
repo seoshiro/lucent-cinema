@@ -104,3 +104,16 @@ test('Worker creation failure preserves a usable original fallback', async ({ pa
   await expect(page.locator('.product-scene')).toHaveAttribute('data-finish','silver')
   await expect.poll(async()=>Number(await page.locator('.product-scene__fallback').evaluate(el=>getComputedStyle(el).opacity))).toBe(1)
 })
+
+test('interrupted optional renderer assets preserve the complete product story', async ({ page }) => {
+  await page.route(/\/assets\/(?:ProductScene|product-renderer)-[^/]+\.js(?:\?.*)?$/, route => route.abort('failed'))
+  await page.goto('./', { waitUntil: 'networkidle' })
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  await expect(page.locator('.product-scene')).toHaveAttribute('data-renderer-status', 'fallback')
+  await page.locator('#finishes').scrollIntoViewIfNeeded()
+  await page.getByRole('button', { name: 'Ember', exact: true }).click()
+  await expect(page.locator('.product-scene')).toHaveAttribute('data-finish', 'copper')
+  const download = page.waitForEvent('download')
+  await page.getByRole('link', { name: 'Download the concept sheet' }).click()
+  expect((await download).suggestedFilename()).toBe('lucent-concept.txt')
+})

@@ -1,10 +1,9 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import type { Finish, CinemaScene } from './components/ProductScene'
 import CinemaWorld from './components/CinemaWorld'
+import ProductScene from './components/ProductScene'
 import { finishes, worlds, chapterProgress, worldVisibility } from './lib/story.mjs'
-
-const ProductScene = lazy(() => import('./components/ProductScene'))
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return <span aria-hidden="true">{diagonal ? '↗' : '↓'}</span>
@@ -69,7 +68,7 @@ export default function App() {
         <div className={`visual-sticky ${cinematic ? 'is-cinema' : ''}`} aria-hidden="true">
           <div className="ambient ambient-warm"/>
           <div className="backdrop-word" style={{ opacity: progress < .16 ? 1 - progress * 5 : progress > .87 ? (progress - .87) * 7 : 0 }}>LUCENT</div>
-          <Suspense fallback={<div className="product-scene"><img className="product-scene__fallback" src={`${import.meta.env.BASE_URL}product-fallback.svg`} alt="" width="1200" height="900"/></div>}><ProductScene scrollProgress={progress} finish={finish} scene={scene} motionEnabled={motionEnabled}/></Suspense>
+          <ProductScene scrollProgress={progress} finish={finish} scene={scene} motionEnabled={motionEnabled}/>
           <div className="cinema-layer"><CinemaWorld scene={scene}/></div><div className="stage-grain"/>
         </div>
         <div className="story-chapters">
