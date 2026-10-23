@@ -100,3 +100,19 @@ Independent checks completed:
 
 Chrome channel is a different browser binary from Playwright's bundled Chromium. Its runner-provided version can change; the version step records the actual selection. The new exact-SHA run must still pass the complete build and 16 tests before deployment, followed by live manifest/asset verification. No Linux Chrome execution or replacement CI success is claimed by this addendum.
 
+## Infrastructure addendum: CI scheduling and journey budget
+
+Decision: PASS for this CI-only configuration review. playwright.config.ts now uses a 60000 ms overall test deadline and one worker when CI is set. Without CI it retains the 30000 ms deadline and default worker selection. Browser choice and all four projects are retained.
+
+The integrator reports that Linux Chrome run 40027220096 passed lint, typecheck, three unit tests and build, then passed 15 of 16 E2E tests. The first full desktop journey exceeded its overall 30-second deadline, with a reported 33.9-second duration while two workers were active; other full journeys completed in 18.5, 8.9 and 5.8 seconds. This auditor did not independently inspect that run's logs. Serial CI scheduling reduces competing browser work; the larger journey deadline is a bounded accommodation for the reported runner timing, not evidence that the previous failed run passed.
+
+Independent validation:
+
+- Actual config imports selected CI timeout 60000, workers 1, channel chrome and four projects.
+- With CI removed, config imports selected timeout 30000, default workers and the same four projects.
+- Playwright discovery still listed all 16 tests.
+- Git diff showed only the two scheduling/deadline configuration changes and no test-file change. No assertion or per-assertion timeout was modified.
+- ESLint passed for playwright.config.ts.
+
+This amendment does not change application assets or weaken the deployment dependency on successful verification. The new exact-SHA run must pass all 16 tests before deployment; live revision/asset checks remain required. Replacement CI success is still NOT VERIFIED by this auditor.
+

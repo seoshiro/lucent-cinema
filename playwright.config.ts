@@ -8,7 +8,8 @@ const executablePath = process.env.CI ? undefined : installed.map(name => join(c
 
 export default defineConfig({
   testDir: './tests/e2e',
-  timeout: 30_000,
+  timeout: process.env.CI ? 60_000 : 30_000,
+  workers: process.env.CI ? 1 : undefined,
   fullyParallel: false,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
