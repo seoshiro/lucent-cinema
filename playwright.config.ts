@@ -15,7 +15,7 @@ export default defineConfig({
     baseURL: process.env.LIVE_URL || 'http://127.0.0.1:4173',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
-    launchOptions: executablePath ? { executablePath } : {},
+    launchOptions: process.env.CI ? { channel: 'chrome' } : executablePath ? { executablePath } : {},
   },
   webServer: process.env.LIVE_URL ? undefined : { command: 'npm run preview', url: 'http://127.0.0.1:4173', reuseExistingServer: !process.env.CI },
   projects: [

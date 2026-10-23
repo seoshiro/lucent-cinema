@@ -82,3 +82,21 @@ Gzip uses Node zlib, not measured network transfer. The renderer remains a subst
 
 Review public Git inventory, run CI for the exact published commit, confirm Pages deployment, compare live manifest revision/every asset hash and complete live browser flows. Native Safari/Firefox and field performance were not tested here. No denial or execution blocker remains in this auditor's scoped local work.
 
+## Infrastructure addendum: preinstalled CI Chrome
+
+Decision: PASS for the source/configuration review of .github/workflows/pages.yml, playwright.config.ts and README.md. This does not establish that the replacement Linux CI run passed.
+
+The workflow now selects standard ubuntu-24.04 runners, verifies google-chrome --version and runs the existing suite with CI launchOptions.channel set to chrome. It removes the redundant browser/dependency installation that the integrator reported waiting on during an apt font-package download. This auditor did not inspect that earlier run's live logs.
+
+The official [Ubuntu 24.04 runner inventory](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md#browsers-and-drivers) lists Google Chrome as preinstalled. Official [Playwright browser guidance](https://playwright.dev/docs/browsers#google-chrome--microsoft-edge) supports using the installed Chrome channel. The installed Playwright fixture implementation was also inspected and reads channel from launchOptions, so the chosen configuration reaches the browser launcher.
+
+Independent checks completed:
+
+- With CI=1, importing the actual config selected channel chrome and retained all four projects.
+- Direct Playwright test discovery listed all 16 tests; none were skipped or removed.
+- ESLint passed for playwright.config.ts.
+- Git diff confirmed no application/runtime source, public asset, dependency manifest/lockfile or Vite configuration change in this infrastructure amendment.
+- Workflow permissions, pinned actions, locked installation, verification/deployment dependency and artifact path remain unchanged. No security bypass, new installer or larger/paid runner was added. Local existing-Chromium selection is unchanged.
+
+Chrome channel is a different browser binary from Playwright's bundled Chromium. Its runner-provided version can change; the version step records the actual selection. The new exact-SHA run must still pass the complete build and 16 tests before deployment, followed by live manifest/asset verification. No Linux Chrome execution or replacement CI success is claimed by this addendum.
+

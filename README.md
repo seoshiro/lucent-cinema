@@ -20,7 +20,7 @@ npm run verify
 npm run test:e2e
 ```
 
-Playwright uses an existing Windows Chromium installation when available. In a clean environment, install its official Chromium with `npx playwright install chromium`. The CI runner installs Chromium and Linux dependencies in its disposable worker.
+Playwright uses an existing Windows Chromium installation when available. In a clean environment, install its official Chromium with `npx playwright install chromium`. CI uses the Google Chrome already provided by the standard Ubuntu 24.04 runner and verifies its actual version before running the complete test suite.
 
 ## Design and implementation
 
