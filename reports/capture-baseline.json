@@ -1,0 +1,14 @@
+[
+  {
+    "name": "desktop",
+    "ready": "product-scene product-scene--ready",
+    "errors": [],
+    "overflow": false
+  },
+  {
+    "name": "mobile",
+    "ready": "product-scene product-scene--ready",
+    "errors": [],
+    "overflow": false
+  }
+]

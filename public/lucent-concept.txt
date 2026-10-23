@@ -1,0 +1,30 @@
+LUCENT P / 01
+A world beyond the frame.
+
+INDEPENDENT DESIGN CONCEPT — 2026
+
+An original study of a portable cinema projector, explored through industrial
+form, light, material, and a continuous interactive camera journey.
+
+FORM
+A softly chamfered aluminum shell, a prominent concentric glass lens,
+repeating ventilation ribs, a tactile top dial, and a soft-touch base.
+
+FINISHES
+Obsidian: quiet graphite aluminum.
+Lunar: a bright, cool aluminum interpretation.
+Ember: a warm copper interpretation.
+
+WORLDS
+Blue hour, Afterglow, and Far beyond are original procedural environments.
+
+ABOUT THIS STUDY
+This is a fictional product design concept, not a manufactured product or
+an offer for sale. No certifications, measured optical performance, or
+commercial availability are claimed.
+
+The projector geometry, fallback illustration and cinematic environments
+are original code-native assets. The supplied reference videos informed
+composition and motion only; their product imagery is not redistributed.
+
+Source and license: https://github.com/seoshiro/lucent-cinema

@@ -1,0 +1,55 @@
+import { memo } from 'react'
+
+type Props = { scene: 'aurora' | 'dune' | 'orbit' }
+
+const CinemaWorld = memo(function CinemaWorld({ scene }: Props) {
+  return <div className={`cinema-world cinema-world--${scene}`} aria-hidden="true">
+    <svg className="world-art" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="sky-blue" x2="0" y2="1"><stop stopColor="#020816"/><stop offset=".5" stopColor="#0d2647"/><stop offset="1" stopColor="#4d879c"/></linearGradient>
+        <linearGradient id="sky-dune" x2="0" y2="1"><stop stopColor="#1b1020"/><stop offset=".6" stopColor="#b36d63"/><stop offset="1" stopColor="#f4b984"/></linearGradient>
+        <linearGradient id="sky-orbit" x2="1" y2="1"><stop stopColor="#03040e"/><stop offset="1" stopColor="#122c4a"/></linearGradient>
+        <linearGradient id="sea" x2="0" y2="1"><stop stopColor="#5f9fb8"/><stop offset=".2" stopColor="#1c4c6a"/><stop offset="1" stopColor="#030c1d"/></linearGradient>
+        <linearGradient id="peak" x1=".2" y1="0" x2=".7" y2="1"><stop stopColor="#b5ced8"/><stop offset=".4" stopColor="#3c6882"/><stop offset="1" stopColor="#05182d"/></linearGradient>
+        <linearGradient id="sand" x2=".7" y2="1"><stop stopColor="#f8caa0"/><stop offset=".3" stopColor="#a86c5b"/><stop offset="1" stopColor="#211b28"/></linearGradient>
+        <radialGradient id="planet"><stop stopColor="#b9c8e1"/><stop offset=".55" stopColor="#47658b"/><stop offset=".85" stopColor="#122337"/><stop offset="1" stopColor="#020712"/></radialGradient>
+        <radialGradient id="sky-glow"><stop stopColor="#95d9ff" stopOpacity=".5"/><stop offset="1" stopColor="#4c9ece" stopOpacity="0"/></radialGradient>
+        <radialGradient id="sun"><stop stopColor="#fff3d8"/><stop offset=".7" stopColor="#e4b9a0"/><stop offset="1" stopColor="#ebae93" stopOpacity="0"/></radialGradient>
+        <filter id="soft"><feGaussianBlur stdDeviation="24"/></filter>
+      </defs>
+      {scene === 'aurora' ? <>
+        <rect width="1600" height="1000" fill="url(#sky-blue)"/>
+        <ellipse cx="940" cy="390" rx="560" ry="400" fill="url(#sky-glow)"/>
+        <g className="world-distant"><circle cx="1040" cy="270" r="59" fill="#d9e8e9"/><circle cx="1017" cy="251" r="58" fill="#102a47"/>
+          <path d="M0 570 160 490 260 525 400 390 520 435 640 330 810 480 950 435 1130 500 1270 370 1460 490 1600 460V1000H0Z" fill="#25425c"/>
+        </g>
+        <rect y="569" width="1600" height="431" fill="url(#sea)"/>
+        <path d="M0 1000V690L180 640 390 330 580 580 740 610 840 1000Z" fill="url(#peak)" className="world-mid"/>
+        <path d="m390 330-24 143-80 92 117-40 41 69 54-57Z" fill="#a6c4d2" opacity=".65" className="world-mid"/>
+        <path d="m1600 1000-445-1-100-262 140-106 110-180 100 78 195 71Z" fill="#08192b" className="world-near"/>
+        <g stroke="#acd6e6" strokeOpacity=".15"><path d="M750 680h275m-340 48h390m-310 63h180m-90 76h260m-400 53h450"/></g>
+      </> : scene === 'dune' ? <>
+        <rect width="1600" height="1000" fill="url(#sky-dune)"/>
+        <circle cx="1050" cy="350" r="120" fill="url(#sun)" className="world-distant"/>
+        <path d="M0 690Q300 460 720 645T1600 550V1000H0Z" fill="#6c4651" className="world-distant"/>
+        <path d="M0 1000V740Q480 380 950 680T1600 670V1000Z" fill="url(#sand)" className="world-mid"/>
+        <path d="M0 1000V850Q400 680 660 800T1600 710V1000Z" fill="#4c3440" className="world-near"/>
+        <path d="M890 730V455h180v275h-34V490H925v240Z" fill="#202433"/>
+        <path d="m925 730 111-2 240 272H900Z" fill="#fbc6a0" opacity=".12"/>
+      </> : <>
+        <rect width="1600" height="1000" fill="url(#sky-orbit)"/>
+        <ellipse cx="1030" cy="460" rx="520" ry="420" fill="url(#sky-glow)" opacity=".35"/>
+        <g className="world-distant"><circle cx="1040" cy="400" r="236" fill="url(#planet)"/>
+          <ellipse cx="1040" cy="400" rx="400" ry="64" fill="none" stroke="#769bbd" strokeWidth="26" opacity=".4" transform="rotate(-24 1040 400)"/>
+          <ellipse cx="1040" cy="400" rx="430" ry="73" fill="none" stroke="#9cadcc" strokeWidth="2" opacity=".55" transform="rotate(-24 1040 400)"/>
+        </g>
+        <path d="M0 1000V800L210 690 470 750 650 702 800 860 1000 810 1210 900 1460 750 1600 820V1000Z" fill="#0d1728" className="world-mid"/>
+        <path d="M0 1000v-80l230-110 260 190h280l450-130 380 60v70Z" fill="#02060e" className="world-near"/>
+      </>}
+      <g fill="#e2edff" opacity=".7">{Array.from({ length: 45 }, (_, i) => <circle key={i} cx={(i * 193 + 79) % 1600} cy={(i * 137 + 40) % 450} r={i % 7 === 0 ? 1.8 : .7}/>)}</g>
+    </svg>
+    <div className="world-vignette"/><div className="world-grain"/>
+  </div>
+})
+
+export default CinemaWorld

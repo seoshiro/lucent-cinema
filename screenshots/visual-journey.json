@@ -1,0 +1,138 @@
+{
+  "conditions": {
+    "browser": "installed Chromium1248, isolated automation",
+    "viewport": {
+      "width": 1536,
+      "height": 730
+    },
+    "url": "http://127.0.0.1:5173",
+    "network": "local, unthrottled"
+  },
+  "checks": [
+    {
+      "check": "hero",
+      "stage": "product-scene product-scene--ready"
+    },
+    {
+      "check": "axe hero",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+          "nodes": [
+            {
+              "target": [
+                "a[aria-label=\"Lucent home\"]"
+              ],
+              "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "target": [
+                ".motion-toggle"
+              ],
+              "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "check": "object anchor",
+      "hash": "#craft",
+      "top": 0
+    },
+    {
+      "check": "world dune",
+      "pressed": "true",
+      "class": "cinema-world cinema-world--dune",
+      "opacity": "1"
+    },
+    {
+      "check": "world orbit",
+      "pressed": "true",
+      "class": "cinema-world cinema-world--orbit",
+      "opacity": "1"
+    },
+    {
+      "check": "world aurora",
+      "pressed": "true",
+      "class": "cinema-world cinema-world--aurora",
+      "opacity": "1"
+    },
+    {
+      "check": "finish silver",
+      "pressed": "true",
+      "stageFinish": "silver"
+    },
+    {
+      "check": "finish copper",
+      "pressed": "true",
+      "stageFinish": "copper"
+    },
+    {
+      "check": "finish graphite",
+      "pressed": "true",
+      "stageFinish": "graphite"
+    },
+    {
+      "check": "reversed anchors",
+      "hash": "#cinema",
+      "cinemaTop": 0,
+      "worldOpacity": "1"
+    },
+    {
+      "check": "pause motion",
+      "motion": "reduced"
+    },
+    {
+      "check": "download concept sheet",
+      "filename": "lucent-concept.txt",
+      "failure": null
+    },
+    {
+      "check": "first tab",
+      "active": {
+        "text": "Skip to content",
+        "outline": "solid",
+        "rect": {
+          "x": 24,
+          "y": 15,
+          "width": 153.84375,
+          "height": 50,
+          "top": 15,
+          "right": 177.84375,
+          "bottom": 65,
+          "left": 24
+        }
+      }
+    },
+    {
+      "check": "mobile touch finish",
+      "finish": "copper",
+      "overflow": {
+        "width": 390,
+        "document": 390
+      }
+    },
+    {
+      "check": "reduced preference",
+      "motion": "reduced",
+      "button": "true"
+    },
+    {
+      "check": "WebGL unavailable",
+      "canvas": 0,
+      "fallbackOpacity": "1",
+      "imageLoaded": true
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    {
+      "type": "warning",
+      "text": "THREE.WebGLProgram: Program Info Log: (210,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision"
+    }
+  ],
+  "requestFailures": []
+}

@@ -1,0 +1,66 @@
+.product-scene {
+  --model-opacity: 1;
+  --fallback-opacity: 1;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  isolation: isolate;
+}
+
+.product-scene__canvas,
+.product-scene__fallback {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.product-scene__canvas {
+  opacity: 0;
+}
+
+.product-scene__fallback {
+  opacity: var(--fallback-opacity);
+  transform: translateX(18%);
+  transition: filter 400ms ease;
+}
+
+.product-scene--ready .product-scene__canvas {
+  opacity: var(--model-opacity);
+}
+
+.product-scene--ready .product-scene__fallback {
+  opacity: 0;
+}
+
+.product-scene[data-finish='silver'] .product-scene__fallback {
+  filter: brightness(1.5) saturate(0.7);
+}
+
+.product-scene[data-finish='copper'] .product-scene__fallback {
+  filter: sepia(0.45) saturate(1.5);
+}
+
+@media (max-aspect-ratio: 7/8) {
+  .product-scene__fallback {
+    width: 180%;
+    left: -40%;
+    transform: translateY(-6%);
+  }
+}
+
+.product-scene[data-motion='reduced'] .product-scene__canvas,
+.product-scene[data-motion='reduced'] .product-scene__fallback {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-scene__canvas,
+  .product-scene__fallback {
+    transition: none;
+  }
+}

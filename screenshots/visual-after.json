@@ -1,0 +1,131 @@
+{
+  "url": "http://127.0.0.1:5173",
+  "conditions": "Local Windows installed Chromium1248, unthrottled, isolated automation",
+  "sources": {
+    "src/App.tsx": "a561f58edaf7af71161e25b2f2c56c9f264399d4d4c29367dc96cbbd538bb6c1",
+    "src/styles.css": "1d4c9f4223e54b467f9064ce479f971e463e210b57184359d8247f1627e50ce1",
+    "src/components/ProductScene.tsx": "e5f72db1d72ea809541e408259e1f20f66a7aa1b78684d50226fa956ac71b62d"
+  },
+  "checks": [
+    {
+      "check": "desktop hero layout",
+      "viewport": {
+        "width": 1536,
+        "height": 730
+      },
+      "overflow": false,
+      "motionOverlapScroll": false
+    },
+    {
+      "check": "desktop axe hero",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "targets": [
+            [
+              "a[aria-label=\"LUCENT P / 01 home\"]"
+            ],
+            [
+              ".motion-toggle"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "check": "desktop finish",
+      "finish": "copper"
+    },
+    {
+      "check": "cinema motion overlap",
+      "overlap": false,
+      "opacity": "1"
+    },
+    {
+      "check": "keyboard world aurora",
+      "pressed": "true"
+    },
+    {
+      "check": "keyboard world dune",
+      "pressed": "true"
+    },
+    {
+      "check": "keyboard world orbit",
+      "pressed": "true"
+    },
+    {
+      "check": "cinema axe",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious"
+        }
+      ]
+    },
+    {
+      "check": "pause command",
+      "state": "reduced",
+      "name": "▷Enable motion"
+    },
+    {
+      "check": "mobile hero layout",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "overflow": false,
+      "motionOverlapScroll": false
+    },
+    {
+      "check": "mobile axe hero",
+      "violations": []
+    },
+    {
+      "check": "mobile finish",
+      "finish": "copper"
+    },
+    {
+      "check": "landscape hero layout",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "overflow": false,
+      "motionOverlapScroll": false
+    },
+    {
+      "check": "landscape axe hero",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "targets": [
+            [
+              "a[aria-label=\"LUCENT P / 01 home\"]"
+            ],
+            [
+              ".motion-toggle"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "check": "landscape finish",
+      "finish": "copper"
+    },
+    {
+      "check": "reduced motion preference",
+      "state": "reduced"
+    },
+    {
+      "check": "fallback",
+      "canvas": 0,
+      "loaded": true,
+      "opacity": "1"
+    }
+  ],
+  "errors": [],
+  "failures": []
+}

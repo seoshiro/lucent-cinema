@@ -1,0 +1,90 @@
+{
+  "url": "http://127.0.0.1:4173",
+  "conditions": "Local Windows production preview, installed isolated Chromium1248, unthrottled",
+  "sources": {
+    "src/App.tsx": "7578955fd6559a923d2e148f10654b486d81fb5ecb2dde906971bc11155e51dd",
+    "src/styles.css": "30b81a348a0e5476816c75ffa928501a2385fd154cc2e3f91fd2bdf5c71839fb",
+    "src/components/ProductScene.tsx": "4111ae6019e4caa71d60ccd0f89abd3abcad5c310651eec473892cb18894202c"
+  },
+  "checks": [
+    {
+      "check": "desktop axe hero",
+      "violations": []
+    },
+    {
+      "check": "desktop hero",
+      "overflow": false,
+      "caption": "flex",
+      "buttonName": 1
+    },
+    {
+      "check": "desktop finishes",
+      "modelOpacity": "1",
+      "worldOpacity": "0",
+      "finish": "copper"
+    },
+    {
+      "check": "desktop axe finishes",
+      "violations": []
+    },
+    {
+      "check": "desktop cinema",
+      "worldOpacity": "1",
+      "motionOverlap": false
+    },
+    {
+      "check": "motion command",
+      "state": "reduced",
+      "enableNamed": 1
+    },
+    {
+      "check": "mobile axe hero",
+      "violations": []
+    },
+    {
+      "check": "mobile hero",
+      "overflow": false,
+      "caption": "flex",
+      "buttonName": 1
+    },
+    {
+      "check": "mobile finishes",
+      "modelOpacity": "1",
+      "worldOpacity": "0",
+      "finish": "copper"
+    },
+    {
+      "check": "mobile axe finishes",
+      "violations": []
+    },
+    {
+      "check": "landscape axe hero",
+      "violations": []
+    },
+    {
+      "check": "landscape hero",
+      "overflow": false,
+      "caption": "none",
+      "buttonName": 1
+    },
+    {
+      "check": "landscape finishes",
+      "modelOpacity": "1",
+      "worldOpacity": "0",
+      "finish": "copper"
+    },
+    {
+      "check": "landscape axe finishes",
+      "violations": []
+    }
+  ],
+  "errors": [],
+  "failures": [],
+  "warnings": [
+    {
+      "name": "desktop",
+      "type": "warning",
+      "message": "THREE.WebGLProgram: Program Info Log: (210,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision"
+    }
+  ]
+}

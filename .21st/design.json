@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "project": {
+    "name": "LUCENT",
+    "kind": "Original cinematic projector design concept",
+    "status": "fictional product / concept edition",
+    "audience": "People who enjoy industrial design, film and cinematic web experiences"
+  },
+  "provenance": {
+    "referenceReview": "Parent and separate reference analyst reviewed actual materialized video frames in Linux. The analyst reports 4 frames per second across all meaningful phases. This art-director role works from their timestamped brief; no local desktop video playback is claimed.",
+    "videos": [
+      {
+        "reference": "reference1",
+        "filename": "66716.mp4",
+        "duration_seconds": 21.93,
+        "meaningful_site_until_seconds": 17.8
+      },
+      {
+        "reference": "reference2",
+        "filename": "66717.mp4",
+        "duration_seconds": 12.93,
+        "meaningful_interval_seconds": [
+          3,
+          9
+        ]
+      }
+    ]
+  },
+  "stack": {
+    "rendering": "Integrator choice; real static site with progressive enhancement",
+    "assets": "Original code-native projector and environment",
+    "paidServices": false
+  },
+  "tokens": {
+    "color": {
+      "background": "#07090b",
+      "surface": "#111518",
+      "foreground": "#f2f3ee",
+      "muted": "#a8adb2",
+      "line": "#30363b",
+      "accentWarm": "#ff8347",
+      "accentCool": "#93c8ff",
+      "metalDark": "#333b42",
+      "metalLight": "#b8bec3"
+    },
+    "typography": {
+      "display": "System sans-serif, heavy weight; tightly tracked",
+      "body": "System sans-serif; regular and medium",
+      "mono": "System monospace for technical captions",
+      "displayTracking": "-0.055em",
+      "eyebrowTracking": "0.16em",
+      "bodyLineHeight": 1.6
+    },
+    "spacing": {
+      "unit": 4,
+      "desktopGutter": "clamp(24px, 5vw, 88px)",
+      "mobileGutter": "20px",
+      "sectionGap": "clamp(80px, 12vw, 192px)",
+      "maxContent": "1440px"
+    },
+    "radius": {
+      "control": "999px",
+      "panel": "12px",
+      "product": "Physical geometry; do not reuse UI radii"
+    },
+    "motion": {
+      "entryMs": 800,
+      "controlMs": 180,
+      "largeStateMs": 600,
+      "ease": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "primary": "Continuous scroll camera choreography of one object",
+      "reducedMotion": "Static camera; all text and sections readable; no parallax"
+    }
+  },
+  "composition": {
+    "hero": {
+      "height": "At least one viewport; content must fit mobile without obscuring controls",
+      "brandLayer": "LUCENT oversized low-contrast/outline type behind object",
+      "object": "Dark aluminum projector; lens is focal point. Hero object 55–65% desktop viewport width and 75–90% mobile width",
+      "headline": "Small object.\nEndless cinema.",
+      "headlinePosition": "Left lower quadrant on desktop; separate top text band on mobile",
+      "lighting": "Warm amber rim and restrained lens glow across black negative space",
+      "navigation": "Thin top line: LUCENT mark, Experience / Design / Finishes / Details, Explore CTA",
+      "primaryCta": "Explore the lens — scroll to next meaningful chapter",
+      "secondaryCta": "Choose a finish — anchor to finish controls"
+    },
+    "narrative": [
+      "Warm hero and three-quarter product silhouette",
+      "Macro lens with optical rings and light path; avoid invented technical claims",
+      "Metal body / ventilation / portable object details with editorial side composition",
+      "Enter the lens: a cool cinematic scene expands to full viewport",
+      "Interactive material finishes and visual scenes",
+      "Compact design notes/specification study and downloadable concept sheet"
+    ],
+    "forbidden": [
+      "Generic card grid as the main narrative",
+      "Unlicensed source product imagery or branding",
+      "TikTok overlays, watermark, monitor room",
+      "Fake checkout, form, stock count, certification or real performance promise",
+      "Always-on decorative particle field"
+    ]
+  },
+  "decisions": [
+    {
+      "decision": "Use LUCENT, the parent's selected original premium portable projector concept.",
+      "reason": "A large optical lens and sculpted aluminum shell support the reference's camera rotation, macro view and warm-to-blue cinematic choreography."
+    },
+    {
+      "decision": "Treat the object and continuous light as the visual thread across chapters.",
+      "reason": "Reference emphasis is a single changing object with bold editorial type, rather than independent reveal cards."
+    },
+    {
+      "decision": "Clearly describe the work as an independent fictional design concept.",
+      "reason": "Interactive finishes/scenes and downloadable design notes are useful real CTA flows without pretending sales or specifications are real."
+    },
+    {
+      "decision": "Use native/code-generated assets and system typography by default.",
+      "reason": "Keep the site original, lightweight, free and independent of paid assets or external font/network dependencies."
+    }
+  ],
+  "accessibility": {
+    "keyboard": "Semantic buttons/links; visible focus; no hover-only information",
+    "touch": "Controls at least 44 CSS px; pointer gestures optional",
+    "contrast": "Text uses foreground/muted tokens against background; accent is not the only state signal",
+    "fallback": "Non-WebGL view retains product depiction, chapter narrative and all controls"
+  },
+  "inspiration": {
+    "provider": "21st.dev MCP metadata search",
+    "query": "cinematic dark product landing page scroll 3d hero",
+    "result": "Catalog search failed; no component code, template or paid generation retrieved"
+  }
+}
+
+

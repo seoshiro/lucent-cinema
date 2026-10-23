@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.library-transfer/
+reference/
+.env*
+test-results/
+playwright-report/
+*.log
+*.tsbuildinfo
+scripts/audit-runtime-result.json
+screenshots/*.png
+screenshots/*.mjs
+scripts/audit-*.mjs
+scripts/audit-*
+evidence/
+reports/materialization-blocker.md

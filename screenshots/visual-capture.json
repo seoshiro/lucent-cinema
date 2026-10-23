@@ -1,0 +1,32 @@
+[
+  {
+    "name": "desktop",
+    "size": {
+      "width": 1536,
+      "height": 730
+    },
+    "errors": [],
+    "failures": [],
+    "dom": {
+      "scrollWidth": 1536,
+      "viewport": 1536,
+      "canvas": 1,
+      "stage": "product-scene product-scene--ready"
+    }
+  },
+  {
+    "name": "mobile",
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "errors": [],
+    "failures": [],
+    "dom": {
+      "scrollWidth": 390,
+      "viewport": 390,
+      "canvas": 1,
+      "stage": "product-scene product-scene--ready"
+    }
+  }
+]

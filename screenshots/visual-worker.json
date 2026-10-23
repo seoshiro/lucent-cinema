@@ -1,0 +1,94 @@
+{
+  "url": "http://127.0.0.1:4173",
+  "conditions": "Stable local production preview, isolated installed Chromium1248; targeted worker-renderer recheck only; no axe rerun",
+  "sources": {
+    "src/App.tsx": "7578955fd6559a923d2e148f10654b486d81fb5ecb2dde906971bc11155e51dd",
+    "src/styles.css": "30b81a348a0e5476816c75ffa928501a2385fd154cc2e3f91fd2bdf5c71839fb",
+    "src/components/ProductScene.tsx": "b3d13c8a695ad2d5a102c42f05a7ec9b82b80212170287b4b7a6db6975d51590",
+    "src/workers/product-renderer.ts": "5231172ea14e1ddf9c700e4626f62e85871e864deeaa75f4accf1420c8206fd2",
+    "src/components/product-scene.css": "dd2d10de681769f77fe100a0f3a09401abacada37c8d835d6f582b69e037b344"
+  },
+  "checks": [
+    {
+      "check": "desktop worker hero",
+      "status": "ready",
+      "overflow": false
+    },
+    {
+      "check": "desktop world switch",
+      "world": "cinema-world cinema-world--dune"
+    },
+    {
+      "check": "desktop finish Obsidian",
+      "value": "graphite",
+      "status": "ready"
+    },
+    {
+      "check": "desktop finish Lunar",
+      "value": "silver",
+      "status": "ready"
+    },
+    {
+      "check": "desktop finish Ember",
+      "value": "copper",
+      "status": "ready"
+    },
+    {
+      "check": "mobile worker hero",
+      "status": "ready",
+      "overflow": false
+    },
+    {
+      "check": "mobile world switch",
+      "world": "cinema-world cinema-world--dune"
+    },
+    {
+      "check": "mobile finish Obsidian",
+      "value": "graphite",
+      "status": "ready"
+    },
+    {
+      "check": "mobile finish Lunar",
+      "value": "silver",
+      "status": "ready"
+    },
+    {
+      "check": "mobile finish Ember",
+      "value": "copper",
+      "status": "ready"
+    },
+    {
+      "check": "unsupported",
+      "status": "fallback",
+      "canvas": 0,
+      "loaded": true,
+      "opacity": "1",
+      "errors": []
+    },
+    {
+      "check": "creation-failure",
+      "status": "fallback",
+      "canvas": 0,
+      "loaded": true,
+      "opacity": "1",
+      "errors": []
+    },
+    {
+      "check": "runtime-failure",
+      "status": "fallback",
+      "canvas": 0,
+      "loaded": true,
+      "opacity": "1",
+      "errors": []
+    }
+  ],
+  "errors": [],
+  "failures": [],
+  "warnings": [
+    {
+      "name": "desktop",
+      "type": "warning",
+      "text": "THREE.WebGLProgram: Program Info Log: (210,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision"
+    }
+  ]
+}
