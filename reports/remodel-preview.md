@@ -1,6 +1,6 @@
 # LUCENT remodel: local review
 
-This revision is staged locally. It has not been pushed, deployed or approved as a production release. Published main remains `cc8198dfda42538f5baccf134497346aa86fe9ae` (v1.0.3).
+This is the prepublication review record for implementation `1bc887e` and project instructions `82f0cce`. The user approved the shown version for publication on 2026-10-24, superseding the preview hold. The approved application, model and artwork remain unchanged. The current deployed revision is identified by the public [build manifest](https://seoshiro.github.io/lucent-cinema/build-manifest.json); earlier audit statements below retain their actual scope.
 
 ## Concrete corrections
 
@@ -50,7 +50,7 @@ Confirmed Library review outputs, all version 0:
 | Full-size corrected desktop landscape | `libfile_7205374aea9881918659d102a0921b41` |
 | Full-size corrected phone landscape | `libfile_7983e1576bec8191886be9790d1dee15` |
 
-No production publication is authorized for this revision yet. The desktop-local preview is `http://127.0.0.1:4173/`; it is not a public URL. Published main remains unchanged. The parent can review the actual pixels before deciding the next step.
+The prepublication desktop preview was `http://127.0.0.1:4173/`, a local URL. After the user's approval, publication uses the existing GitHub Pages workflow; new live verification is required and previous local results are not treated as live-deployment evidence.
 
 The code auditor separately reviewed the final portrait-clearance delta, confirmed the three stage unit cases and targeted ESLint, and found no P1/P2/P3 issue in that delta. Reduced/manual pause and fallback use the same outer stage visibility; taking the minimum with owner visibility cannot revive a stage after its section has ended. Browser evidence for that last delta belongs to the integrator's full suite and the independent visual reviewer, not a claimed second code-auditor browser run.
 

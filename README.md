@@ -2,7 +2,7 @@
 
 An original portable cinema projector design concept. One Blender-authored object, a continuous scroll camera journey, three material finishes, and three cinematic worlds.
 
-This revision is a local preview awaiting visual review. The published site remains at `cc8198d` (v1.0.3). See [remodel preview](reports/remodel-preview.md); the existing release audits describe the earlier published version.
+The Blender remodel was visually reviewed and approved by the user for publication. Its implementation is `1bc887e`, with the standing project instructions added in `82f0cce`. See the [remodel review record](reports/remodel-preview.md); the deployed revision and asset hashes are recorded in the public [build manifest](https://seoshiro.github.io/lucent-cinema/build-manifest.json).
 
 **[Experience LUCENT](https://seoshiro.github.io/lucent-cinema/)** · **[Screenshots and evidence](https://github.com/seoshiro/lucent-cinema/releases/tag/v1.0.2)**
 

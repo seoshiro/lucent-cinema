@@ -7,5 +7,5 @@
 - Verify the main flow and material failures, repeated/interrupted actions, back/reload/return, keyboard/focus and representative viewports as appropriate to the change. Use safe local/test conditions for failure injection.
 - Distinguish implemented, actually tested and unverified behavior. Static reading is not execution, a screenshot is not interaction testing, and a mock is not real integration. Do not claim perfection, universal readiness or a fabricated quality score.
 - Pass this standard, the common design contract and ownership boundaries to participating executors. Do not create agents merely to satisfy the skill or claim another executor installed/read it without confirmation.
-- The skill grants no publication, payment, external-message or data permissions. Honor the current staged-review hold and explicit user authorization; no production publication is authorized by this instruction file itself.
+- The skill grants no publication, payment, external-message or data permissions. Honor explicit user authorization and any active staged-review hold; no production publication is authorized by this instruction file itself.
 - These standing instructions apply to LUCENT. Do not edit global machine instructions or other repositories as an incidental part of this task.
