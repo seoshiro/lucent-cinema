@@ -1,6 +1,8 @@
 # LUCENT P / 01
 
-An original portable cinema projector design concept. One procedural object, a continuous scroll camera journey, three material finishes, and three cinematic worlds.
+An original portable cinema projector design concept. One Blender-authored object, a continuous scroll camera journey, three material finishes, and three cinematic worlds.
+
+This revision is a local preview awaiting visual review. The published site remains at `cc8198d` (v1.0.3). See [remodel preview](reports/remodel-preview.md); the existing release audits describe the earlier published version.
 
 **[Experience LUCENT](https://seoshiro.github.io/lucent-cinema/)** · **[Screenshots and evidence](https://github.com/seoshiro/lucent-cinema/releases/tag/v1.0.2)**
 
@@ -25,15 +27,15 @@ Playwright uses an existing Windows Chromium installation when available. In a c
 ## Design and implementation
 
 - React 19, TypeScript 6, Vite 8, Three.js. No paid API integration, templates, external fonts, trackers, forms, or backend.
-- Original procedural aluminum chassis, glass lens, ventilation geometry and SVG fallback. Blue hour uses the user-requested built-in AI-generated minimalist artwork; the other cinematic environments use SVG/CSS. See [artwork provenance](reports/cinematic-artwork.md).
+- Original Blender aluminum chassis, recessed layered glass, ventilation, ports and feet, exported as optimized GLB. Three static finish fallbacks are actual transparent Blender renders. Blue hour uses a clean original vector landscape after the raster version was rejected. The other cinematic environments use SVG/CSS. See [artwork history](reports/cinematic-artwork.md) and [Blender source](assets/blender/README.md).
 - One shared product stage. Native scrolling controls camera poses; no wheel interception or scroll locking.
-- On-demand rendering in an optional OffscreenCanvas worker, capped pixel density, reduced motion, keyboard controls, touch targets, context loss recovery, and an original SVG fallback when worker/WebGL capabilities are unavailable.
+- On-demand rendering in an optional OffscreenCanvas worker, capped pixel density, reduced motion, keyboard controls, touch targets, context loss recovery, and Blender-rendered WebP fallbacks when worker/WebGL capabilities are unavailable.
 - Finish and world controls update the actual scene. The concept-sheet download is a real bundled file.
 - `.21st/` records the project's visual decisions. Free 21st metadata lookup was attempted but its catalog returned an error; no paid component retrieval or generation was used.
 
 The desktop team comprised one integrator and four actual subagents: art direction, motion/3D implementation, independent visual/UX audit, and independent code/security/performance audit. Reference viewing was completed separately by the parent and its reference analyst, using materialized source videos and sampling at four frames per second. No real-time playback or desktop viewing of the original MP4s is claimed. See [reference provenance](reports/reference-brief.md).
 
-ECC-derived, 21st UI Build/Review, React Review and Verification instructions informed the work. ECC runtime, hooks, and paid services were not used. Blender's existing Python supported preparation; the shipped product model is created in Three.js, not Blender.
+ECC-derived, 21st UI Build/Review, React Review and Verification instructions informed the work. ECC runtime, hooks, and paid services were not used. The remodel's editable master, materials and geometry are saved in Blender; Three.js loads the GLB for rendering and camera movement.
 
 ## Verification and release integrity
 
@@ -43,6 +45,6 @@ The GitHub Pages workflow builds and tests the exact pushed commit before publis
 
 ## License and assets
 
-Original code and procedural assets: [MIT](LICENSE). Runtime dependency notices are shipped at [`third-party-licenses.txt`](public/third-party-licenses.txt). Test tooling is development-only. The user-supplied video product imagery, brands, overlays, and audio are not redistributed.
+Original code, Blender and vector assets: [MIT](LICENSE). Runtime dependency notices are shipped at [`third-party-licenses.txt`](public/third-party-licenses.txt). Test tooling is development-only. The user-supplied video product imagery, brands, overlays, and audio are not redistributed.
 
 GitHub Pages for public repositories and standard GitHub Actions runners for public repositories are available without hosting or runner charges under [GitHub's documented plans](https://docs.github.com/en/actions/concepts/billing-and-usage). No paid hosting or larger runners are configured.

@@ -1,9 +1,9 @@
 import {
-  ACESFilmicToneMapping, BufferGeometry, Color, DirectionalLight, HemisphereLight,
+  ACESFilmicToneMapping, BufferGeometry, CanvasTexture, Color, DirectionalLight, HemisphereLight,
   Material, Mesh, MeshBasicMaterial, PerspectiveCamera, PlaneGeometry,
   PMREMGenerator, Scene, SRGBColorSpace, Texture, Vector3, WebGLRenderer,
 } from 'three';
-import { createProjector, type CinemaScene, type Finish } from '../lib/scene-model';
+import { loadProjector, type CinemaScene, type Finish } from '../lib/blender-projector';
 
 export interface ProductState {
   scrollProgress: number;
@@ -15,7 +15,7 @@ export interface ProductState {
 interface Dimensions { width: number; height: number; dpr: number }
 
 export type RendererInput =
-  | { type: 'init'; canvas: OffscreenCanvas; state: ProductState; size: Dimensions; visible: boolean }
+  | { type: 'init'; canvas: OffscreenCanvas; state: ProductState; size: Dimensions; visible: boolean; modelUrl: string }
   | { type: 'update'; state: ProductState }
   | { type: 'resize'; size: Dimensions }
   | { type: 'visibility'; visible: boolean }
@@ -73,14 +73,33 @@ function studioEnvironment(renderer: WebGLRenderer) {
   const room = new Scene();
   room.background = new Color('#25272c');
   const panelGeometry = new PlaneGeometry(1, 1);
+  // Studio lighting only: feathered softboxes keep clear optical glass from
+  // reflecting hard, decal-like rectangles. No product geometry is made here.
+  const softbox = new OffscreenCanvas(128, 128);
+  const paint = softbox.getContext('2d');
+  let softboxMap: CanvasTexture<OffscreenCanvas> | undefined;
+  if (paint) {
+    const falloff = paint.createRadialGradient(64, 64, 0, 64, 64, 64);
+    falloff.addColorStop(0, '#ffffff');
+    falloff.addColorStop(.62, '#ffffff');
+    falloff.addColorStop(.82, '#9b9b9b');
+    falloff.addColorStop(1, '#000000');
+    paint.fillStyle = falloff;
+    paint.fillRect(0, 0, 128, 128);
+    softboxMap = new CanvasTexture(softbox);
+    softboxMap.colorSpace = SRGBColorSpace;
+  }
   const panels = [
     { color: '#ffffff', intensity: 6, position: [-4, 5, 2], scale: [3, 6] },
     { color: '#d9e5f4', intensity: 2.8, position: [5, 3, 1], scale: [2, 6] },
-    { color: '#ffbb84', intensity: 2.6, position: [0, 1, -5], scale: [6, 1.5] },
+    { color: '#e4e8ef', intensity: 1.5, position: [0, 1, -5], scale: [6, 1.5] },
+    { color: '#f3f5f8', intensity: 5, position: [-1, 3.5, 6], scale: [4.5, 2] },
+    { color: '#c0d4ea', intensity: 1.8, position: [3, -2, 5], scale: [2, 0.6] },
+    { color: '#eef3f8', intensity: 4, position: [-5, 0.8, 4], scale: [0.65, 3.6] },
   ];
   const materials: MeshBasicMaterial[] = [];
   for (const panel of panels) {
-    const material = new MeshBasicMaterial({ color: new Color(panel.color).multiplyScalar(panel.intensity) });
+    const material = new MeshBasicMaterial({ color: new Color(panel.color).multiplyScalar(panel.intensity), map: softboxMap });
     const mesh = new Mesh(panelGeometry, material);
     mesh.position.set(panel.position[0], panel.position[1], panel.position[2]);
     mesh.scale.set(panel.scale[0], panel.scale[1], 1);
@@ -89,10 +108,11 @@ function studioEnvironment(renderer: WebGLRenderer) {
     materials.push(material);
   }
   const generator = new PMREMGenerator(renderer);
-  const target = generator.fromScene(room, 0, 0.1, 30, { size: 128 });
+  const target = generator.fromScene(room, 0, 0.1, 30, { size: 256 });
   generator.dispose();
   panelGeometry.dispose();
   materials.forEach((material) => material.dispose());
+  softboxMap?.dispose();
   return target;
 }
 
@@ -121,31 +141,37 @@ function invalidate() {
   }
 }
 
-function initialize(canvas: OffscreenCanvas) {
+async function initialize(canvas: OffscreenCanvas, modelUrl: string) {
   try {
+    // Model data is loaded before creating the GPU context, so there is no
+    // unhandled context-loss interval while a network request is pending.
+    const projector = await loadProjector(modelUrl);
+    if (disposed) return;
     const context = canvas.getContext('webgl2', { antialias: true, alpha: true, powerPreference: 'low-power', failIfMajorPerformanceCaveat: true });
     if (!context) throw new Error('WebGL unavailable in this worker');
     const renderer = new WebGLRenderer({ canvas, context, antialias: true, alpha: true, powerPreference: 'low-power' });
     renderer.setClearColor(0x000000, 0);
     renderer.outputColorSpace = SRGBColorSpace;
     renderer.toneMapping = ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.35;
+    renderer.toneMappingExposure = 1;
     const world = new Scene();
     const camera = new PerspectiveCamera(33, 1, 0.1, 50);
     camera.position.set(0, 0.12, 9.6);
     camera.lookAt(new Vector3(0, 0, 0));
-    const projector = createProjector();
     world.add(projector.root);
     let environment: ReturnType<typeof studioEnvironment> | undefined;
-    world.environmentIntensity = 0.8;
-    world.add(new HemisphereLight('#c4d3e7', '#252020', 1.6));
-    const key = new DirectionalLight('#ffe4c6', 5.4);
+    world.environmentIntensity = 1.4;
+    world.add(new HemisphereLight('#d4dae2', '#17191d', 1));
+    const key = new DirectionalLight('#f3f2ee', 2.3);
     key.position.set(-3, 5, 6);
     world.add(key);
-    const fill = new DirectionalLight('#b4d8ff', 2.4);
+    const fill = new DirectionalLight('#d7e2ee', .8);
     fill.position.set(5, 2, 4);
     world.add(fill);
-    const rim = new DirectionalLight('#ff9b57', 5.8);
+    const frontFill = new DirectionalLight('#e1e8f0', 2.4);
+    frontFill.position.set(-.5, 1, 7);
+    world.add(frontFill);
+    const rim = new DirectionalLight('#d8b69c', 1.9);
     rim.position.set(-2, 1, -4);
     world.add(rim);
     let lastFinish = state.finish;
@@ -175,13 +201,21 @@ function initialize(canvas: OffscreenCanvas) {
       const approach = state.motionEnabled ? Math.max(0, Math.min(1, (currentProgress - 0.44) / 0.16)) : 0;
       const returnToObject = state.motionEnabled ? Math.max(0, Math.min(1, (currentProgress - 0.78) / 0.08)) : 0;
       const horizontalOffset = portrait ? 0 : 1.6 * (1 - approach + returnToObject);
-      projector.root.position.set(pose.x * (portrait ? 0.35 : 1) + horizontalOffset, pose.y + (portrait ? 0.46 : 0), 0);
+      const scale = pose.scale * fit;
+      // The camera moves through the Blender-authored lens, whose center is
+      // offset from the body's center. Keep that optical axis at screen center.
+      const centeredX = 0.97 * scale;
+      const centeredY = -0.08505 * scale;
+      const positionX = pose.x * (portrait ? 0.35 : 1) + horizontalOffset;
+      const positionY = pose.y + (portrait ? 0.46 : 0);
+      const lensAlignment = approach * (1 - returnToObject);
+      projector.root.position.set(positionX + (centeredX - positionX) * lensAlignment, positionY + (centeredY - positionY) * lensAlignment, 0);
       projector.root.rotation.set(pose.rx, pose.ry, pose.rz);
-      projector.root.scale.setScalar(pose.scale * fit);
+      projector.root.scale.setScalar(scale);
       if (lastFinish !== state.finish) { projector.setFinish(state.finish); lastFinish = state.finish; }
       if (lastScene !== state.scene) { projector.setScene(state.scene); lastScene = state.scene; }
       const cold = Math.min(1, currentProgress * 2);
-      rim.color.setRGB(1 - cold * 0.5, 0.4 + cold * 0.14, 0.15 + cold * 0.85);
+      rim.color.setRGB(1 - cold * 0.25, 0.88 + cold * 0.04, 0.78 + cold * 0.22);
       try {
         renderer.render(world, camera);
         scope.postMessage({ type: 'frame', alpha: pose.alpha });
@@ -264,7 +298,7 @@ scope.onmessage = (event) => {
     state = message.state;
     size = message.size;
     visible = message.visible;
-    initialize(message.canvas);
+    void initialize(message.canvas, message.modelUrl);
   } else if (message.type === 'update') {
     state = message.state;
     invalidate();

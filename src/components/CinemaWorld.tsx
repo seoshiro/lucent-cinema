@@ -21,15 +21,9 @@ const CinemaWorld = memo(function CinemaWorld({ scene, artworkEnabled }: Props) 
       </defs>
       {scene === 'aurora' ? <>
         <rect width="1600" height="1000" fill="url(#sky-blue)"/>
-        <ellipse cx="940" cy="390" rx="560" ry="400" fill="url(#sky-glow)"/>
-        <g className="world-distant"><circle cx="1040" cy="270" r="59" fill="#d9e8e9"/><circle cx="1017" cy="251" r="58" fill="#102a47"/>
-          <path d="M0 570 160 490 260 525 400 390 520 435 640 330 810 480 950 435 1130 500 1270 370 1460 490 1600 460V1000H0Z" fill="#25425c"/>
-        </g>
-        <rect y="569" width="1600" height="431" fill="url(#sea)"/>
-        <path d="M0 1000V690L180 640 390 330 580 580 740 610 840 1000Z" fill="url(#peak)" className="world-mid"/>
-        <path d="m390 330-24 143-80 92 117-40 41 69 54-57Z" fill="#a6c4d2" opacity=".65" className="world-mid"/>
-        <path d="m1600 1000-445-1-100-262 140-106 110-180 100 78 195 71Z" fill="#08192b" className="world-near"/>
-        <g stroke="#acd6e6" strokeOpacity=".15"><path d="M750 680h275m-340 48h390m-310 63h180m-90 76h260m-400 53h450"/></g>
+        <path d="M0 600C300 560 350 410 600 510S1200 480 1600 560V1000H0Z" fill="#35556d" className="world-distant"/>
+        <path d="M0 710C300 630 360 490 650 660S1300 590 1600 720V1000H0Z" fill="#1a354f" className="world-mid"/>
+        <path d="M0 830C310 700 440 820 680 870S1300 710 1600 820V1000H0Z" fill="#091d32" className="world-near"/>
       </> : scene === 'dune' ? <>
         <rect width="1600" height="1000" fill="url(#sky-dune)"/>
         <circle cx="1050" cy="350" r="120" fill="url(#sun)" className="world-distant"/>
@@ -48,13 +42,12 @@ const CinemaWorld = memo(function CinemaWorld({ scene, artworkEnabled }: Props) 
         <path d="M0 1000V800L210 690 470 750 650 702 800 860 1000 810 1210 900 1460 750 1600 820V1000Z" fill="#0d1728" className="world-mid"/>
         <path d="M0 1000v-80l230-110 260 190h280l450-130 380 60v70Z" fill="#02060e" className="world-near"/>
       </>}
-      <g fill="#e2edff" opacity=".7">{Array.from({ length: 45 }, (_, i) => <circle key={i} cx={(i * 193 + 79) % 1600} cy={(i * 137 + 40) % 450} r={i % 7 === 0 ? 1.8 : .7}/>)}</g>
+      {scene !== 'aurora' && <g fill="#e2edff" opacity=".7">{Array.from({ length: 45 }, (_, i) => <circle key={i} cx={(i * 193 + 79) % 1600} cy={(i * 137 + 40) % 450} r={i % 7 === 0 ? 1.8 : .7}/>)}</g>}
     </svg>
     {scene === 'aurora' && artworkEnabled && artworkStatus !== 'fallback' && <picture className={`world-photo ${artworkStatus === 'ready' ? 'world-photo--ready' : ''}`}>
-      <source media="(max-width: 760px)" srcSet={`${import.meta.env.BASE_URL}cinema/lucent-minimal-world-mobile.webp`}/>
-      <img src={`${import.meta.env.BASE_URL}cinema/lucent-minimal-world.webp`} alt="" width="1672" height="941" decoding="async" fetchPriority="low" onLoad={() => setArtworkStatus('ready')} onError={() => setArtworkStatus('fallback')}/>
+      <img src={`${import.meta.env.BASE_URL}cinema/lucent-clear-horizon.svg`} alt="" width="2400" height="1400" decoding="async" fetchPriority="low" onLoad={() => setArtworkStatus('ready')} onError={() => setArtworkStatus('fallback')}/>
     </picture>}
-    <div className="world-vignette"/><div className="world-grain"/>
+    <div className="world-vignette"/>
   </div>
 })
 

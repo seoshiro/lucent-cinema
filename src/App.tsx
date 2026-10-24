@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react'
 import type { Finish, CinemaScene } from './components/ProductScene'
 import CinemaWorld from './components/CinemaWorld'
 import ProductScene from './components/ProductScene'
-import { finishes, worlds, chapterProgress, worldVisibility } from './lib/story.mjs'
+import { finishes, worlds, chapterProgress, worldVisibility, stageVisibility, finaleVisibility } from './lib/story.mjs'
 import { animate, createScope } from 'animejs'
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
@@ -16,6 +16,7 @@ export default function App() {
   const previousFinish = useRef<Finish>('graphite')
   const finishFromPointer = useRef(false)
   const [progress, setProgress] = useState(0)
+  const [stageAlpha, setStageAlpha] = useState(1)
   const [finish, setFinish] = useState<Finish>('graphite')
   const [scene, setScene] = useState<CinemaScene>('aurora')
   const [motionEnabled, setMotionEnabled] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches)
@@ -47,6 +48,10 @@ export default function App() {
         const stops = [0, .24, .44, .58, .70, .87, 1]
         const anchors = Array.from(chapters, (chapter, index) => ({ top: chapter.offsetTop, progress: stops[index] }))
         setProgress(Math.round(chapterProgress(-bounds.top, anchors) * 1000) / 1000)
+        const viewport = window.innerHeight
+        const finale = storyRef.current?.querySelector('.finale-copy')?.getBoundingClientRect()
+        const copyClearance = window.innerWidth < viewport * .88 && finale ? finaleVisibility(finale.top, viewport) : 1
+        setStageAlpha(Math.min(stageVisibility(bounds.bottom, viewport), copyClearance))
       }
     }
     const schedule = () => { if (!frame) frame = window.requestAnimationFrame(update) }
@@ -66,6 +71,7 @@ export default function App() {
   const cinematic = progress > .54 && progress < .81
   const sceneStyle = {
     '--world-opacity': worldOpacity,
+    '--stage-opacity': stageAlpha,
     '--world-shift': `${motionEnabled ? (progress - .68) * -90 : 0}px`,
     '--finish-color': chosenFinish.color,
     '--mobile-model-lift': `${Math.min(1, Math.max(0, (progress - .80) / .07)) * -18}svh`,
@@ -80,11 +86,11 @@ export default function App() {
     </header>
     <main id="main">
       <div className={`story-track ${motionEnabled ? '' : 'motion-paused'}`} ref={storyRef} style={sceneStyle}>
-        <div className={`visual-sticky ${cinematic ? 'is-cinema' : ''}`} aria-hidden="true">
+        <div className={`visual-sticky ${cinematic ? 'is-cinema' : ''} ${stageAlpha === 0 ? 'is-out' : ''}`} aria-hidden="true">
           <div className="ambient ambient-warm"/>
-          <div className="backdrop-word" style={{ opacity: progress < .16 ? 1 - progress * 5 : progress > .87 ? (progress - .87) * 7 : 0 }}>LUCENT</div>
+          <div className="backdrop-word" style={{ opacity: Math.max(0, 1 - progress / .16) }}>LUCENT</div>
           <ProductScene scrollProgress={progress} finish={finish} scene={scene} motionEnabled={motionEnabled}/>
-          <div className="cinema-layer"><CinemaWorld scene={scene} artworkEnabled={progress >= .36}/></div><div className="stage-grain"/>
+          <div className="cinema-layer"><CinemaWorld scene={scene} artworkEnabled={progress >= .36}/></div>
         </div>
         <div className="story-chapters">
           <section className="chapter hero" id="top" aria-labelledby="hero-title">

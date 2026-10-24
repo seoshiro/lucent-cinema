@@ -6,7 +6,9 @@ LUCENT is an original fictional portable cinematic projector. The parent's selec
 
 One dark aluminum object, one deep glass lens, continuous cinematic camera choreography. Near-black negative space, soft white editorial type, warm amber rim/beam resolving into cool blue cinema. Oversized LUCENT lettering is a background layer, not a substitute for product detail.
 
-Blue hour now uses the user's revised minimalist image direction: four smooth blue ridges, generous dark negative space and a fine crescent. Preserve the supplied artwork and quiet composition; the rejected detailed landscape is excluded. Load this decorative image only as the story approaches the optical/portal sequence, with responsive cover framing and an SVG failure fallback.
+The local remodel keeps the minimalist direction with clean code-native vector artwork: four asymmetric blue ridges, generous dark negative space and a fine crescent. The rejected noisy raster and CSS grain are removed from runtime assets. Load the SVG only as the story approaches the portal, with responsive cover framing and a smooth vector failure fallback.
+
+The product is now authored in Blender, saved as an editable master and exported as optimized GLB. Preserve the neutral matte aluminum, separate polymer fascia, recessed black pupil and layered glass. Three.js handles rendering and camera movement. Actual Blender-rendered images provide the three finish fallbacks. Broad feathered neutral softboxes keep reflections readable without grey optical caps, harsh decals or toy chrome.
 
 Headline: **Small object. Endless cinema.**
 

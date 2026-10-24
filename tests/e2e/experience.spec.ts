@@ -121,14 +121,14 @@ test('interrupted optional renderer assets preserve the complete product story',
 
 test('minimalist artwork waits for the story and stays consistent after world changes', async ({ page }) => {
   const artworkRequests: string[] = []
-  page.on('request', request => { if (request.url().includes('/cinema/lucent-minimal-world')) artworkRequests.push(request.url()) })
+  page.on('request', request => { if (request.url().includes('/cinema/lucent-clear-horizon.svg')) artworkRequests.push(request.url()) })
   await page.goto('./', { waitUntil:'networkidle' })
   expect(artworkRequests).toEqual([])
   await page.locator('#cinema').scrollIntoViewIfNeeded()
   const photo = page.locator('.world-photo img')
   await expect(page.locator('.cinema-world')).toHaveAttribute('data-artwork-status','ready')
   expect(await photo.evaluate(image => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0)).toBe(true)
-  expect(await photo.evaluate(image => (image as HTMLImageElement).currentSrc)).toContain(await page.evaluate(() => innerWidth <= 760) ? 'world-mobile.webp' : 'world.webp')
+  expect(await photo.evaluate(image => (image as HTMLImageElement).currentSrc)).toContain('lucent-clear-horizon.svg')
   await page.getByRole('button',{name:'Afterglow',exact:false}).click()
   await expect(page.locator('.cinema-world')).toHaveAttribute('data-artwork-status','procedural')
   await page.getByRole('button',{name:'Blue hour',exact:false}).click()
@@ -137,7 +137,7 @@ test('minimalist artwork waits for the story and stays consistent after world ch
 })
 
 test('unavailable landscape keeps the cinema controls and SVG fallback usable', async ({ page }) => {
-  await page.route(/\/cinema\/lucent-minimal-world(?:-mobile)?\.webp$/, route => route.abort('failed'))
+  await page.route(/\/cinema\/lucent-clear-horizon\.svg$/, route => route.abort('failed'))
   await page.goto('./', { waitUntil:'networkidle' })
   await page.locator('#cinema').scrollIntoViewIfNeeded()
   await expect(page.locator('.cinema-world')).toHaveAttribute('data-artwork-status','fallback')

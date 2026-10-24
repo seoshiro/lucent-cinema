@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1400" viewBox="0 0 2400 1400">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#06101b"/><stop offset=".46" stop-color="#132c44"/><stop offset="1" stop-color="#5a788a"/></linearGradient>
+    <radialGradient id="air" cx=".68" cy=".84" r=".73"><stop stop-color="#9aafbd" stop-opacity=".32"/><stop offset="1" stop-color="#8aa4ba" stop-opacity="0"/></radialGradient>
+    <linearGradient id="far" x2="0" y2="1"><stop stop-color="#466a80"/><stop offset="1" stop-color="#2a4863"/></linearGradient>
+    <linearGradient id="mid" x1=".2" y1="0" x2=".8" y2="1"><stop stop-color="#284c69"/><stop offset="1" stop-color="#1a354f"/></linearGradient>
+    <linearGradient id="near" x2=".6" y2="1"><stop stop-color="#16354e"/><stop offset="1" stop-color="#091d32"/></linearGradient>
+    <linearGradient id="foreground" x2="0" y2="1"><stop stop-color="#0c263d"/><stop offset="1" stop-color="#061322"/></linearGradient>
+    <linearGradient id="moon" x2=".7" y2="1"><stop stop-color="#8fa4b5"/><stop offset=".5" stop-color="#e4eced"/><stop offset="1" stop-color="#a3b8c6"/></linearGradient>
+    <mask id="crescent"><circle cx="2040" cy="300" r="40" fill="white"/><circle cx="2036" cy="298" r="39.8" fill="black"/></mask>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h2400v1400H0z"/>
+  <path fill="url(#air)" d="M0 0h2400v1400H0z"/>
+  <circle cx="2040" cy="300" r="40" fill="url(#moon)" opacity=".86" mask="url(#crescent)"/>
+  <g transform="translate(0 -150)">
+    <path fill="url(#far)" d="M0 950C230 930 430 930 650 820C820 780 930 880 1100 910C1400 980 1680 930 1850 900C2070 860 2350 910 2400 930V1600H0Z"/>
+    <path fill="url(#mid)" d="M0 1060C250 1050 460 880 760 900C1040 930 1100 1160 1450 1060C1720 950 1980 990 2400 1090V1600H0Z"/>
+    <path fill="url(#near)" d="M0 1120C310 1030 450 1080 680 1135C1000 1240 1260 1300 1510 1260C1860 1160 2140 1120 2400 1180V1600H0Z"/>
+    <path fill="url(#foreground)" d="M0 1320C380 1150 600 1310 790 1345C1190 1425 1400 1360 1730 1265C1970 1200 2180 1320 2400 1380V1600H0Z"/>
+  </g>
+</svg>

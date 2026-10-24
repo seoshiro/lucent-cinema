@@ -1,0 +1,63 @@
+{
+  "status": "local preview pending parent review; no production deployment",
+  "authoring": "Blender 5.2.2 LTS; original geometry and PBR materials",
+  "license": "MIT, original assets; evaluated third-party candidates not included",
+  "runtime": {
+    "format": "glTF 2.0 binary",
+    "bytes": 1044836,
+    "meshes": 1,
+    "materialPrimitives": 12,
+    "vertices": 30245,
+    "triangles": 51332,
+    "images": 0
+  },
+  "renders": {
+    "sourceDimensions": [
+      1600,
+      1200
+    ],
+    "studioSamples": 160,
+    "transparentSamples": 256,
+    "encoding": "Existing Chromium Canvas WebP quality 0.96; original PNGs retained locally"
+  },
+  "files": [
+    {
+      "path": "assets/blender/lucent-projector.blend",
+      "sha256": "59c1c68ef127aa85bfa09951a80b9c8aef8e16366544921a9801b37ebe6eb772"
+    },
+    {
+      "path": "assets/blender/build_projector.py",
+      "sha256": "23fee36e179eb24291a2e5c65e958d10f8b964a4845cb14cd45f3df91765ffaa"
+    },
+    {
+      "path": "public/models/lucent-projector.glb",
+      "sha256": "915b50699e81734415d378b99ddac8f1a90e28d12b97aa04c0a9696f83626295"
+    },
+    {
+      "path": "public/models/lucent-fallback-graphite.webp",
+      "sha256": "398eb7f082b261dc1b54a6fca5748a0a42da9573b960624b26f6ffdfa64d1113"
+    },
+    {
+      "path": "public/models/lucent-fallback-silver.webp",
+      "sha256": "25a3b98152e1ba8bb0e28552ce79fef4efb8220b6eb78f65293b5c8f02f448dc"
+    },
+    {
+      "path": "public/models/lucent-fallback-copper.webp",
+      "sha256": "44332e6ada7f724f19fdb4927ac29062ba6416dd2a87879ea0751c830cdb9100"
+    },
+    {
+      "path": "public/cinema/lucent-clear-horizon.svg",
+      "sha256": "a6b45c33ebecd2070936c84605b5afc4b14ab5d94e200107fb889fbd2d58d89d"
+    }
+  ],
+  "reviewLibrary": {
+    "site": "libfile_0f3c36b6111c8191a35d3bcd8a5c12ab",
+    "modelViews": "libfile_03c53d0f74a88191b6d2c9a0daf6dfd3",
+    "masterBlend": "libfile_f713da6e9d008191bfe803c3d081abd5",
+    "latestHeroDesktop": "libfile_97940ef024188191a484f074655dc404",
+    "latestHeroPhone": "libfile_677f4d9bc0c48191abe84e51aa577105",
+    "landscapeDesktop": "libfile_7205374aea9881918659d102a0921b41",
+    "landscapePhone": "libfile_7983e1576bec8191886be9790d1dee15",
+    "version": 0
+  }
+}

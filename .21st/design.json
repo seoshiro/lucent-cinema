@@ -79,7 +79,7 @@
       "object": "Dark aluminum projector; lens is focal point. Hero object 55–65% desktop viewport width and 75–90% mobile width",
       "headline": "Small object.\nEndless cinema.",
       "headlinePosition": "Left lower quadrant on desktop; separate top text band on mobile",
-      "lighting": "Warm amber rim and restrained lens glow across black negative space",
+      "lighting": "Neutral feathered studio reflections on matte aluminum and real layered glass; restrained warm ambient accent",
       "navigation": "Thin top line: LUCENT mark, Experience / Design / Finishes / Details, Explore CTA",
       "primaryCta": "Explore the lens — scroll to next meaningful chapter",
       "secondaryCta": "Choose a finish — anchor to finish controls"
@@ -118,8 +118,12 @@
       "reason": "Keep the site original, lightweight, free and independent of paid assets or external font/network dependencies."
     },
     {
-      "decision": "Use the user's revised built-in AI minimalist landscape for Blue hour, shared across the portal and cinema chapters.",
-      "reason": "The user explicitly requested a high-quality image with minimalism: smooth blue ridges, dark negative space and a fine crescent. Keep the supplied producer artwork unchanged, defer requests until the story approaches the portal, and preserve the SVG failure fallback."
+      "decision": "Replace the rejected raster with original crisp SVG artwork while preserving the minimalist Blue hour direction.",
+      "reason": "Remove CSS grain and raster upscaling instead of claiming lost detail can be recovered. Keep smooth asymmetric blue ridges, dark negative space, a thin crescent, deferred loading and a smooth SVG failure fallback."
+    },
+    {
+      "decision": "Author the complete projector in Blender and render its optimized GLB in Three.js.",
+      "reason": "The user rejected the primitive model and explicitly required Blender. Preserve credible recessed optics, material separation, bevels, ports and feet; keep actual Blender render fallbacks and review browser lighting separately."
     }
   ],
   "accessibility": {

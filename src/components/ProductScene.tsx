@@ -84,7 +84,8 @@ export default function ProductScene({ scrollProgress, finish, scene, motionEnab
         const bounds = host.getBoundingClientRect();
         return { width: Math.max(1, bounds.width), height: Math.max(1, bounds.height), dpr: Math.min(window.devicePixelRatio || 1, 1.5) };
       };
-      worker.postMessage({ type: 'init', canvas: offscreen, state: valuesRef.current, size: dimensions(), visible: !document.hidden } satisfies RendererInput, [offscreen]);
+      const modelUrl = new URL(import.meta.env.BASE_URL + 'models/lucent-projector.glb', document.baseURI).href;
+      worker.postMessage({ type: 'init', canvas: offscreen, state: valuesRef.current, size: dimensions(), visible: !document.hidden, modelUrl } satisfies RendererInput, [offscreen]);
       resizeObserver = new ResizeObserver(() => send({ type: 'resize', size: dimensions() }));
       resizeObserver.observe(host);
       intersectionObserver = new IntersectionObserver(([entry]) => {
@@ -94,7 +95,7 @@ export default function ProductScene({ scrollProgress, finish, scene, motionEnab
       intersectionObserver.observe(host);
       document.addEventListener('visibilitychange', visibility);
     } catch {
-      // Startup failures happen before ready=true, so the original SVG remains.
+      // Startup failures retain the Blender-rendered static image.
       failed = true;
       host.dataset.rendererStatus = 'fallback';
       if (workerRef.current === worker) workerRef.current = null;
@@ -116,7 +117,7 @@ export default function ProductScene({ scrollProgress, finish, scene, motionEnab
 
   return (
     <div ref={hostRef} className={ready ? 'product-scene product-scene--ready' : 'product-scene'} style={{ '--fallback-opacity': fallbackOpacity(scrollProgress) } as CSSProperties} aria-hidden="true" data-finish={finish} data-motion={motionEnabled ? 'enabled' : 'reduced'}>
-      <img className="product-scene__fallback" src={import.meta.env.BASE_URL + 'product-fallback.svg'} alt="" width="1200" height="900" draggable="false" />
+      <img className="product-scene__fallback" src={`${import.meta.env.BASE_URL}models/lucent-fallback-${finish}.webp`} alt="" width="1600" height="1200" draggable="false" />
     </div>
   );
 }

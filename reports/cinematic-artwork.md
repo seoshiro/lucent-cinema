@@ -1,4 +1,6 @@
-# Minimalist Blue hour artwork
+# Blue hour artwork history
+
+The generated raster described below belongs to the v1.0.2/v1.0.3 history. The user subsequently rejected its visible quality. The current local remodel preview replaces it with original code-native `cinema/lucent-clear-horizon.svg`, retaining the minimalist direction without raster upscaling or CSS grain. See [the local revision report](remodel-preview.md). This is not a claim that upscaling or compression restored the old image's detail.
 
 The user requested a generated landscape for chapters 03 (Go beyond) and 04 (Be somewhere else), then explicitly requested minimalism. This update uses only the revised accepted-direction output: smooth blue ridge layers, dark open sky and a small crescent. The detailed photorealistic candidate is not in main or the deployed assets.
 

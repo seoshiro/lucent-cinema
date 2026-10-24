@@ -46,3 +46,22 @@ export function worldVisibility(progress) {
   const leave = Math.max(0, Math.min(1, (0.81 - progress) / 0.07))
   return Math.min(enter, leave)
 }
+
+/** Finish the visual story before the following opaque section enters view.
+ * The stage belongs to story-track; the final 18vh is an exit, not an overlay.
+ * @param {number} bottom @param {number} viewport
+ */
+export function stageVisibility(bottom, viewport) {
+  if (!Number.isFinite(bottom) || !Number.isFinite(viewport) || viewport <= 0) return 0
+  const amount = Math.max(0, Math.min(1, (bottom - viewport) / (viewport * .18)))
+  return amount * amount * (3 - 2 * amount)
+}
+
+/** On a phone, clear the fixed product before finale copy reaches its band.
+ * @param {number} copyTop @param {number} viewport
+ */
+export function finaleVisibility(copyTop, viewport) {
+  if (!Number.isFinite(copyTop) || !Number.isFinite(viewport) || viewport <= 0) return 0
+  const amount = Math.max(0, Math.min(1, (copyTop / viewport - .4) / .15))
+  return amount * amount * (3 - 2 * amount)
+}
