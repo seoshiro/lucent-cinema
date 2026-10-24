@@ -4,6 +4,7 @@ import type { Finish, CinemaScene } from './components/ProductScene'
 import CinemaWorld from './components/CinemaWorld'
 import ProductScene from './components/ProductScene'
 import { finishes, worlds, chapterProgress, worldVisibility } from './lib/story.mjs'
+import { animate, createScope } from 'animejs'
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return <span aria-hidden="true">{diagonal ? '↗' : '↓'}</span>
@@ -11,10 +12,23 @@ function Arrow({ diagonal = false }: { diagonal?: boolean }) {
 
 export default function App() {
   const storyRef = useRef<HTMLDivElement>(null)
+  const finishDescriptionRef = useRef<HTMLDivElement>(null)
+  const previousFinish = useRef<Finish>('graphite')
+  const finishFromPointer = useRef(false)
   const [progress, setProgress] = useState(0)
   const [finish, setFinish] = useState<Finish>('graphite')
   const [scene, setScene] = useState<CinemaScene>('aurora')
   const [motionEnabled, setMotionEnabled] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+
+  useEffect(() => {
+    const changed = previousFinish.current !== finish
+    previousFinish.current = finish
+    if (!changed || !finishFromPointer.current || !motionEnabled || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const scope = createScope({ root: finishDescriptionRef }).add(() => {
+      animate(finishDescriptionRef.current!, { opacity: [.45, 1], duration: 180, ease: 'out(3)' })
+    })
+    return () => scope.revert()
+  }, [finish, motionEnabled])
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -91,7 +105,7 @@ export default function App() {
             <div className="world-controls"><div><p className="tiny-label">CHOOSE YOUR WORLD</p><p className="world-description" aria-live="polite">{chosenWorld.description}</p></div><fieldset className="scene-picker"><legend className="sr-only">Cinema world</legend>{worlds.map((world, index) => <button key={world.id} type="button" aria-pressed={scene === world.id} onClick={() => setScene(world.id as CinemaScene)}><span className="option-index">0{index + 1}</span>{world.name}<span className="selection-indicator" aria-hidden="true">↗</span></button>)}</fieldset></div>
           </section>
           <section className="chapter finishes" id="finishes" aria-labelledby="finish-title">
-            <div className="chapter-copy align-left"><p className="eyebrow">05 / MAKE IT YOURS</p><h2 id="finish-title">Three expressions.<br/>One point of view.</h2><p className="body-copy">The same sculpted silhouette, in a finish that feels like you.</p><fieldset className="finish-picker"><legend>EXPLORE THE FINISHES</legend>{finishes.map(item => <button key={item.id} type="button" aria-label={item.name} aria-pressed={finish === item.id} onClick={() => setFinish(item.id as Finish)} style={{ '--swatch': item.color } as CSSProperties}><span className="swatch"/><span>{item.name}</span></button>)}</fieldset><div className="finish-description" aria-live="polite"><h3>{chosenFinish.name}</h3><p>{chosenFinish.description}</p></div></div>
+            <div className="chapter-copy align-left"><p className="eyebrow">05 / MAKE IT YOURS</p><h2 id="finish-title">Three expressions.<br/>One point of view.</h2><p className="body-copy">The same sculpted silhouette, in a finish that feels like you.</p><fieldset className="finish-picker"><legend>EXPLORE THE FINISHES</legend>{finishes.map(item => <button key={item.id} type="button" aria-label={item.name} aria-pressed={finish === item.id} onClick={(event) => { finishFromPointer.current = event.detail > 0; setFinish(item.id as Finish) }} style={{ '--swatch': item.color } as CSSProperties}><span className="swatch"/><span>{item.name}</span></button>)}</fieldset><div ref={finishDescriptionRef} className="finish-description" aria-live="polite"><h3>{chosenFinish.name}</h3><p>{chosenFinish.description}</p></div></div>
           </section>
           <section className="chapter finale" aria-labelledby="finale-title"><div className="finale-copy"><p className="eyebrow">06 / LESS OBJECT. MORE POSSIBILITY.</p><h2 id="finale-title">Carry a little<br/><span>extraordinary.</span></h2><a className="pill primary" href="#details">Explore the design <Arrow diagonal/></a></div></section>
         </div>

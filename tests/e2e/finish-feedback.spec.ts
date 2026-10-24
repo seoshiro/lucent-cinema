@@ -1,0 +1,31 @@
+import { expect, test } from '@playwright/test'
+
+test('interrupted finish feedback keeps the current copy readable and keyboard changes immediate', async ({ page }, testInfo) => {
+  await page.goto('./', { waitUntil: 'networkidle' })
+  await page.locator('#finishes').scrollIntoViewIfNeeded()
+  for (const name of ['Lunar', 'Ember', 'Obsidian', 'Lunar']) await page.getByRole('button', { name, exact: true }).click()
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  const ember = page.getByRole('button', { name: 'Ember', exact: true })
+  await ember.focus()
+  await ember.press('Enter')
+  await expect(ember).toBeFocused()
+  await expect(page.locator('.finish-description h3')).toHaveText('Ember')
+  await expect(page.locator('.product-scene')).toHaveAttribute('data-finish', 'copper')
+  await expect(page.locator('.finish-description')).toHaveCSS('opacity', '1')
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  const lunar = page.getByRole('button', { name: 'Lunar', exact: true })
+  await lunar.focus()
+  await lunar.press('Enter')
+  await expect(page.locator('.finish-description h3')).toHaveText('Lunar')
+  await expect(page.locator('.finish-description')).toHaveCSS('opacity', '1')
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width: 1440, height: 1000 })
+    await page.locator('#finishes').scrollIntoViewIfNeeded()
+    await page.locator('.finish-picker').scrollIntoViewIfNeeded()
+    await page.setViewportSize({ width, height: 740 })
+    await page.locator('.finish-picker').scrollIntoViewIfNeeded()
+    await expect(page.locator('#finish-title')).toBeInViewport()
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+    await testInfo.attach(`finishes-partial-scroll-resize-${width}`, { body: await page.screenshot(), contentType: 'image/png' })
+  }
+})

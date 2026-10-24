@@ -142,7 +142,8 @@ footer>span { justify-self:end; color:#747c82; font:8px monospace; letter-spacin
   .hero-bottom { bottom:26px; font-size:7px; left:var(--gutter); right:82px; }.hero-bottom>span:first-child { max-width:110px; }.hero-coordinate { display:none; }.hero-bottom a { gap:10px; font-size:6px; }
   .chapter:not(.hero) { padding:80px var(--gutter) 95px; align-items:flex-end; }
   .chapter-copy { max-width:100%; width:100%; }.chapter-copy h2 { font-size:clamp(34px,9vw,58px); max-width:430px; margin-bottom:18px; }.chapter-copy .body-copy { max-width:330px; font-size:12px; margin-bottom:18px; }
-  .finishes .chapter-copy { padding-top:240px; }
+  .finishes .chapter-copy { padding-top:240px; position:relative; isolation:isolate; }
+  .finishes .chapter-copy::before { content:''; position:absolute; z-index:-1; pointer-events:none; top:208px; bottom:-32px; left:calc(-1 * var(--gutter)); right:calc(-1 * var(--gutter)); background:linear-gradient(to bottom,transparent,var(--bg) 32px,var(--bg) calc(100% - 32px),transparent); }
   .chapter-copy .eyebrow { font-size:8px; margin-bottom:18px; }.detail-line { margin-top:22px; gap:20px; }.detail-number { font-size:70px; }.detail-line>span:last-child { font-size:8px; }
   .technical-caption { display:none; }.micro-note { display:none; }
   .portal { min-height:110svh; }.portal h2 { font-size:clamp(40px,11vw,64px); }.portal .eyebrow { font-size:8px; }.portal .body-copy { font-size:12px; }
