@@ -69,7 +69,7 @@ export default function App() {
           <div className="ambient ambient-warm"/>
           <div className="backdrop-word" style={{ opacity: progress < .16 ? 1 - progress * 5 : progress > .87 ? (progress - .87) * 7 : 0 }}>LUCENT</div>
           <ProductScene scrollProgress={progress} finish={finish} scene={scene} motionEnabled={motionEnabled}/>
-          <div className="cinema-layer"><CinemaWorld scene={scene}/></div><div className="stage-grain"/>
+          <div className="cinema-layer"><CinemaWorld scene={scene} artworkEnabled={progress >= .36}/></div><div className="stage-grain"/>
         </div>
         <div className="story-chapters">
           <section className="chapter hero" id="top" aria-labelledby="hero-title">

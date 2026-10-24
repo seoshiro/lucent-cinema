@@ -1,9 +1,11 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 
-type Props = { scene: 'aurora' | 'dune' | 'orbit' }
+type Props = { scene: 'aurora' | 'dune' | 'orbit'; artworkEnabled: boolean }
 
-const CinemaWorld = memo(function CinemaWorld({ scene }: Props) {
-  return <div className={`cinema-world cinema-world--${scene}`} aria-hidden="true">
+const CinemaWorld = memo(function CinemaWorld({ scene, artworkEnabled }: Props) {
+  const [artworkStatus, setArtworkStatus] = useState<'loading' | 'ready' | 'fallback'>('loading')
+
+  return <div className={`cinema-world cinema-world--${scene}`} data-artwork-status={scene === 'aurora' ? artworkStatus : 'procedural'} aria-hidden="true">
     <svg className="world-art" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
       <defs>
         <linearGradient id="sky-blue" x2="0" y2="1"><stop stopColor="#020816"/><stop offset=".5" stopColor="#0d2647"/><stop offset="1" stopColor="#4d879c"/></linearGradient>
@@ -48,6 +50,10 @@ const CinemaWorld = memo(function CinemaWorld({ scene }: Props) {
       </>}
       <g fill="#e2edff" opacity=".7">{Array.from({ length: 45 }, (_, i) => <circle key={i} cx={(i * 193 + 79) % 1600} cy={(i * 137 + 40) % 450} r={i % 7 === 0 ? 1.8 : .7}/>)}</g>
     </svg>
+    {scene === 'aurora' && artworkEnabled && artworkStatus !== 'fallback' && <picture className={`world-photo ${artworkStatus === 'ready' ? 'world-photo--ready' : ''}`}>
+      <source media="(max-width: 760px)" srcSet={`${import.meta.env.BASE_URL}cinema/lucent-minimal-world-mobile.webp`}/>
+      <img src={`${import.meta.env.BASE_URL}cinema/lucent-minimal-world.webp`} alt="" width="1672" height="941" decoding="async" fetchPriority="low" onLoad={() => setArtworkStatus('ready')} onError={() => setArtworkStatus('fallback')}/>
+    </picture>}
     <div className="world-vignette"/><div className="world-grain"/>
   </div>
 })

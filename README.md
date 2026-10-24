@@ -2,7 +2,7 @@
 
 An original portable cinema projector design concept. One procedural object, a continuous scroll camera journey, three material finishes, and three cinematic worlds.
 
-**[Experience LUCENT](https://seoshiro.github.io/lucent-cinema/)** · **[Screenshots and evidence](https://github.com/seoshiro/lucent-cinema/releases/tag/v1.0.0)**
+**[Experience LUCENT](https://seoshiro.github.io/lucent-cinema/)** · **[Screenshots and evidence](https://github.com/seoshiro/lucent-cinema/releases/tag/v1.0.2)**
 
 This is a fictional product design study, not a product for sale. It makes no claims about measured optical performance, certification, manufacturing, or availability.
 
@@ -24,10 +24,10 @@ Playwright uses an existing Windows Chromium installation when available. In a c
 
 ## Design and implementation
 
-- React 19, TypeScript 6, Vite 8, Three.js. No paid APIs, generated media, templates, external fonts, trackers, forms, or backend.
-- Original procedural aluminum chassis, glass lens, ventilation geometry, SVG fallback, and SVG/CSS cinematic environments.
+- React 19, TypeScript 6, Vite 8, Three.js. No paid API integration, templates, external fonts, trackers, forms, or backend.
+- Original procedural aluminum chassis, glass lens, ventilation geometry and SVG fallback. Blue hour uses the user-requested built-in AI-generated minimalist artwork; the other cinematic environments use SVG/CSS. See [artwork provenance](reports/cinematic-artwork.md).
 - One shared product stage. Native scrolling controls camera poses; no wheel interception or scroll locking.
-- On-demand rendering in an OffscreenCanvas worker, capped pixel density, a lazy scene module, reduced motion, keyboard controls, touch targets, context loss recovery, and an original SVG fallback when worker/WebGL capabilities are unavailable.
+- On-demand rendering in an optional OffscreenCanvas worker, capped pixel density, reduced motion, keyboard controls, touch targets, context loss recovery, and an original SVG fallback when worker/WebGL capabilities are unavailable.
 - Finish and world controls update the actual scene. The concept-sheet download is a real bundled file.
 - `.21st/` records the project's visual decisions. Free 21st metadata lookup was attempted but its catalog returned an error; no paid component retrieval or generation was used.
 

@@ -117,3 +117,33 @@ test('interrupted optional renderer assets preserve the complete product story',
   await page.getByRole('link', { name: 'Download the concept sheet' }).click()
   expect((await download).suggestedFilename()).toBe('lucent-concept.txt')
 })
+
+test('minimalist artwork waits for the story and stays consistent after world changes', async ({ page }) => {
+  const artworkRequests: string[] = []
+  page.on('request', request => { if (request.url().includes('/cinema/lucent-minimal-world')) artworkRequests.push(request.url()) })
+  await page.goto('./', { waitUntil:'networkidle' })
+  expect(artworkRequests).toEqual([])
+  await page.locator('#cinema').scrollIntoViewIfNeeded()
+  const photo = page.locator('.world-photo img')
+  await expect(page.locator('.cinema-world')).toHaveAttribute('data-artwork-status','ready')
+  expect(await photo.evaluate(image => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0)).toBe(true)
+  expect(await photo.evaluate(image => (image as HTMLImageElement).currentSrc)).toContain(await page.evaluate(() => innerWidth <= 760) ? 'world-mobile.webp' : 'world.webp')
+  await page.getByRole('button',{name:'Afterglow',exact:false}).click()
+  await expect(page.locator('.cinema-world')).toHaveAttribute('data-artwork-status','procedural')
+  await page.getByRole('button',{name:'Blue hour',exact:false}).click()
+  await expect(page.locator('.world-photo')).toHaveCSS('opacity','1')
+  if (await page.evaluate(() => matchMedia('(prefers-reduced-motion: reduce)').matches)) await expect(page.locator('.world-photo')).toHaveCSS('transform','none')
+})
+
+test('unavailable landscape keeps the cinema controls and SVG fallback usable', async ({ page }) => {
+  await page.route(/\/cinema\/lucent-minimal-world(?:-mobile)?\.webp$/, route => route.abort('failed'))
+  await page.goto('./', { waitUntil:'networkidle' })
+  await page.locator('#cinema').scrollIntoViewIfNeeded()
+  await expect(page.locator('.cinema-world')).toHaveAttribute('data-artwork-status','fallback')
+  await expect(page.locator('.world-photo')).toHaveCount(0)
+  await expect(page.locator('.world-art')).toBeVisible()
+  await page.getByRole('button',{name:'Far beyond',exact:false}).click()
+  await expect(page.locator('.cinema-world')).toHaveClass(/cinema-world--orbit/)
+  await page.getByRole('button',{name:'Blue hour',exact:false}).click()
+  await expect(page.locator('.world-art')).toBeVisible()
+})

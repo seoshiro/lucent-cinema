@@ -116,6 +116,10 @@
     {
       "decision": "Use native/code-generated assets and system typography by default.",
       "reason": "Keep the site original, lightweight, free and independent of paid assets or external font/network dependencies."
+    },
+    {
+      "decision": "Use the user's revised built-in AI minimalist landscape for Blue hour, shared across the portal and cinema chapters.",
+      "reason": "The user explicitly requested a high-quality image with minimalism: smooth blue ridges, dark negative space and a fine crescent. Keep the supplied producer artwork unchanged, defer requests until the story approaches the portal, and preserve the SVG failure fallback."
     }
   ],
   "accessibility": {
