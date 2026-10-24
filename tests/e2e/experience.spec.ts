@@ -148,3 +148,14 @@ test('unavailable landscape keeps the cinema controls and SVG fallback usable', 
   await page.getByRole('button',{name:'Blue hour',exact:false}).click()
   await expect(page.locator('.world-art')).toBeVisible()
 })
+
+test('cold section link reaches cinema and reload preserves the reading position', async ({ page }) => {
+  await page.goto('./#cinema', { waitUntil: 'networkidle' })
+  await expect.poll(() => page.locator('#cinema').evaluate(element => Math.abs(element.getBoundingClientRect().top))).toBeLessThan(3)
+  await expect(page.locator('.cinema-world')).toHaveAttribute('data-artwork-status', 'ready')
+  await page.evaluate(() => window.scrollBy({ top: 120, behavior: 'instant' }))
+  const position = await page.evaluate(() => window.scrollY)
+  await page.reload({ waitUntil: 'networkidle' })
+  await expect.poll(() => page.evaluate(expected => Math.abs(window.scrollY - expected), position)).toBeLessThan(3)
+  await expect(page.locator('.cinema-world')).toHaveAttribute('data-artwork-status', 'ready')
+})

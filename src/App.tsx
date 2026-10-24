@@ -55,6 +55,15 @@ export default function App() {
       }
     }
     const schedule = () => { if (!frame) frame = window.requestAnimationFrame(update) }
+    // A cold fragment can be resolved before React adds the target section.
+    // Restore only a new navigation at the top; leave reload/back reading positions alone.
+    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined
+    if (navigation?.type === 'navigate' && window.scrollY === 0 && window.location.hash) {
+      let targetId = ''
+      try { targetId = decodeURIComponent(window.location.hash.slice(1)) } catch { /* Invalid fragments have no target. */ }
+      const target = targetId ? document.getElementById(targetId) : null
+      if (target && document.getElementById('main')?.contains(target)) target.scrollIntoView({ behavior: 'instant', block: 'start' })
+    }
     schedule()
     window.addEventListener('scroll', schedule, { passive: true })
     window.addEventListener('resize', schedule)
