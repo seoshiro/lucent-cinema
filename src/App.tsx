@@ -54,6 +54,7 @@ export default function App() {
     '--world-opacity': worldOpacity,
     '--world-shift': `${motionEnabled ? (progress - .68) * -90 : 0}px`,
     '--finish-color': chosenFinish.color,
+    '--mobile-model-lift': `${Math.min(1, Math.max(0, (progress - .80) / .07)) * -18}svh`,
   } as CSSProperties
 
   return <>

@@ -26,6 +26,7 @@ test('complete product story, controls, download and browser health', async ({ p
     return Boolean((canvas && Number(getComputedStyle(canvas).opacity) > .9) || (fallback && Number(getComputedStyle(fallback).opacity) > .9))
   })).toBe(true)
   await expect.poll(async () => Number(await page.locator('.cinema-layer').evaluate(el => getComputedStyle(el).opacity))).toBe(0)
+  await testInfo.attach('finishes-layout', { body: await page.screenshot(), contentType: 'image/png' })
   await page.locator('#cinema').scrollIntoViewIfNeeded()
   await expect.poll(async () => Number(await page.locator('.cinema-layer').evaluate(el => getComputedStyle(el).opacity))).toBe(1)
   for (const name of ['Afterglow', 'Far beyond', 'Blue hour', 'Afterglow']) {
