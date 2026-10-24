@@ -55,22 +55,38 @@ export default function App() {
       }
     }
     const schedule = () => { if (!frame) frame = window.requestAnimationFrame(update) }
-    // A cold fragment can be resolved before React adds the target section.
-    // Restore only a new navigation at the top; leave reload/back reading positions alone.
+    // Native restoration can run before React adds enough document height.
+    // Recover this tab's reload position without changing history entries or URLs.
     const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined
-    if (navigation?.type === 'navigate' && window.scrollY === 0 && window.location.hash) {
+    let savedPosition: { url: string; y: number } | null = null
+    if (navigation?.type === 'reload') {
+      try {
+        const saved = JSON.parse(window.sessionStorage.getItem('lucent:reading-position') ?? 'null')
+        if (saved?.url === window.location.href && Number.isFinite(saved?.y) && saved.y >= 0) savedPosition = saved
+      } catch { /* Native restoration remains available when tab storage is unavailable. */ }
+    }
+    if (savedPosition) {
+      window.scrollTo({ top: savedPosition.y, behavior: 'instant' })
+    } else if (navigation?.type === 'navigate' && window.scrollY === 0 && window.location.hash) {
       let targetId = ''
       try { targetId = decodeURIComponent(window.location.hash.slice(1)) } catch { /* Invalid fragments have no target. */ }
       const target = targetId ? document.getElementById(targetId) : null
       if (target && document.getElementById('main')?.contains(target)) target.scrollIntoView({ behavior: 'instant', block: 'start' })
     }
+    const rememberPosition = () => {
+      try {
+        window.sessionStorage.setItem('lucent:reading-position', JSON.stringify({ url: window.location.href, y: Math.max(0, window.scrollY) }))
+      } catch { /* Keep navigation usable when tab storage is unavailable. */ }
+    }
     schedule()
     window.addEventListener('scroll', schedule, { passive: true })
     window.addEventListener('resize', schedule)
+    window.addEventListener('pagehide', rememberPosition)
     return () => {
       window.cancelAnimationFrame(frame)
       window.removeEventListener('scroll', schedule)
       window.removeEventListener('resize', schedule)
+      window.removeEventListener('pagehide', rememberPosition)
     }
   }, [])
 
